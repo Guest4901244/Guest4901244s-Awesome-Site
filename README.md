@@ -9,5 +9,9 @@ In the future, I'm thinking of making this more than a personal site.
 
 I accept any kinds of feedback! You can submit them to issues :)
 
+Sample Image URLs to set as the background image:
+Static: https://picsum.photos/id/17/2500/1667
+GIF: https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExMzIzcHMzazc4ZGsyMnpqNTg4bzV2dTkzMjJsNWt0c3pmajIzZDYwNyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/OK5LK5zLFfdm/giphy.gif
+
 **This website is half vibecoded.**
 Since I'm still new to this I asked Gemini to add stuff referencing from the original CSS and HTML I made. Hope you understand!
