@@ -60,6 +60,7 @@ html {
     z-index: -1;
     background-image: linear-gradient(to bottom, #ffe589, #ffdf89, #ffda89, #ffd489, #ffcf8a, #ffd18f, #fed294, #fed499, #fedca4, #fee4b0, #feecbc, #fff3c8);
     background-size: cover;
+    background-position: center;
     animation: backgroundanim 1.2s cubic-bezier(0.15, 0, 0.2, 1) forwards;
 }
 
@@ -182,6 +183,17 @@ section {
     font-family: Helvetica;
 }
 
+#bg-input {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 8px 12px;
+    color: #222;
+    width: 220px;
+    outline: none;
+    font-family: Helvetica;
+}
+
 .experimental-tag {
     color: #ff3b30;
 }
@@ -246,12 +258,11 @@ a, a:visited, a:hover, a:active {
         opacity: 0.8;
     }
 
-/* Update this section in your main.css */
 .social-links {
     margin-top: 25px;
     display: flex;
     justify-content: center;
-    align-items: center; /* This centers the icons vertically */
+    align-items: center;
     gap: 20px;
     border-top: 1px solid rgba(0, 0, 0, 0.1);
     padding-top: 20px;
@@ -267,10 +278,9 @@ a, a:visited, a:hover, a:active {
     justify-content: center;
     transition: transform 0.2s ease;
     filter: opacity(0.8);
-    color: #222; /* Set base color for font icons */
+    color: #222;
 }
 
-/* Specifically target the Roblox logo to match the dark color */
 .social-links img {
     filter: brightness(0) saturate(100%) invert(13%) sepia(0%) saturate(0%) hue-rotate(167deg) brightness(93%) contrast(91%) opacity(0.8);
 }
@@ -282,9 +292,65 @@ a, a:visited, a:hover, a:active {
 }
 
 .sub-text {
-    display: block; /* Ensures it sits on its own line */
+    display: block;
     font-size: 12px;
-    color: #8e8e93; /* Secondary gray color used in your iOS theme */
-    margin-top: -10px; /* Pulls it closer to the paragraph above */
+    color: #8e8e93;
+    margin-top: -10px;
     font-family: Helvetica, sans-serif;
+}
+
+.skills-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px;
+    margin: 20px 0;
+}
+
+.skill-box {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.9) 0%, rgba(240, 240, 240, 0.6) 100%);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 12px;
+    padding: 16px 12px;
+    text-align: center;
+    transition: box-shadow 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.skill-box:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.skill-icon {
+    font-size: 28px;
+    width: 28px;
+    height: 28px;
+    margin-bottom: 8px;
+    color: #222;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.skill-icon img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    filter: brightness(0) saturate(100%) invert(10%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(13%) contrast(90%);
+}
+
+.skill-name {
+    font-weight: 600;
+    color: #222;
+    font-size: 14px;
+    margin-bottom: 6px;
+    font-family: Helvetica;
+}
+
+.skill-description {
+    font-size: 12px;
+    color: #666;
+    font-family: Helvetica;
+    line-height: 1.4;
 }
