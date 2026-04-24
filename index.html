@@ -1,33 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
     <meta charset="utf-8">
-
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Guest4901244's Awesome Site</title>
-
-    <link rel="stylesheet" href="main.css">
+    <link id="theme-link" rel="stylesheet" href="main.css">
 </head>
 <body>
     <header class="main-header">
         <div class="logo">Guest4901244's Awesome Site</div>
         <nav class="nav-links">
-            <hb class="header-btn">Home</hb>
-            <hb class="header-btn">About Me</hb>
-            <hb class="header-btn">Settings</hb>
-            <hb class="header-btn">Contributors</hb>
-            <hb class="header-btm">Blog</hb>
+            <hb class="active" onclick="goTo('home', this)">Home</hb>
+            <hb onclick="goTo('about', this)">About Me</hb>
+            <hb onclick="goTo('projects', this)">Projects</hb>
+            <hb onclick="goTo('contributors', this)">Contributors</hb>
+            <hb onclick="goTo('blog', this)">Blog</hb>
+            <hb onclick="goTo('settings', this)">Settings</hb>
         </nav>
+        <div class="copyright">©2026 Guest4901244</div>
     </header>
+
     <div class="bg-image"></div>
-    <div class="content-box">
-        <div class="BodyHeader">Welcome to my website!</div>
-        <p>There isn't a lot here yet, but I'm working on it. Meanwhile, you can check or contribute to the site from its <a href="https://github.com/Guest4901244/Guest4901244s-Awesome-Site">GitHub page</a>.</p>
-        <p>Have a nice day!</p>
+
+    <div class="page-wrapper">
+        <section id="home">
+            <div class="content-box">
+                <div class="BodyHeader">Welcome to my website!</div>
+                <p>There isn't a lot here yet, but I'm working on it. Meanwhile, you can check or contribute to the site from its <a href="https://github.com/Guest4901244/Guest4901244s-Awesome-Site">GitHub page</a>.</p>
+                <p>Have a nice day!</p>
+            </div>
+        </section>
+
+        <section id="about">
+            <div class="content-box">
+                <div class="BodyHeader">About Me</div>
+                <p>Hello, I'm Guest4901244. I'm a 16 years old guy from Turkey. I like tinkering with things.</p>
+            </div>
+        </section>
+
+        <section id="projects">
+            <div class="content-box">
+                <div class="BodyHeader">Projects</div>
+                <p>I don't really have any projects yet other than this website.</p>
+            </div>
+        </section>
+
+        <section id="contributors">
+            <div class="content-box">
+                <div class="BodyHeader">Contributors</div>
+                <p>Currently, there are no contributors other than myself.</p>
+            </div>
+        </section>
+
+        <section id="blog">
+            <div class="content-box">
+                <div class="BodyHeader">Blog</div>
+                <p>There isn't a blog yet, but I might add one in the future.</p>
+            </div>
+        </section>
+
+        <section id="settings">
+            <div class="content-box">
+                <div class="BodyHeader">Settings</div>
+                <div class="setting-item">
+                    <span>iOS 7 Style <span class="experimental-tag">(Experimental)</span></span>
+                    <label class="switch">
+                        <input type="checkbox" id="ios-toggle" onclick="toggleTheme()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+        </section>
     </div>
+
+    <script>
+        function goTo(id, element) {
+            document.getElementById(id).scrollIntoView({
+                behavior: 'smooth',
+                inline: 'center',
+                block: 'nearest'
+            });
+            document.querySelectorAll('hb').forEach(btn => btn.classList.remove('active'));
+            element.classList.add('active');
+        }
+
+        function toggleTheme() {
+            const themeLink = document.getElementById('theme-link');
+            const isChecked = document.getElementById('ios-toggle').checked;
+            if (isChecked) {
+                themeLink.href = 'mainalt.css';
+                localStorage.setItem('theme', 'ios7');
+            } else {
+                themeLink.href = 'main.css';
+                localStorage.setItem('theme', 'modern');
+            }
+        }
+
+        window.onload = function () {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'ios7') {
+                document.getElementById('ios-toggle').checked = true;
+                document.getElementById('theme-link').href = 'mainalt.css';
+            }
+        };
+    </script>
 </body>
-</html> 
+</html>
