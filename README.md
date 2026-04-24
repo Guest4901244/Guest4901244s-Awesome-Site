@@ -8,5 +8,6 @@ This is the secondary style, that can be enabled in site settings.
 In the future, I'm thinking of making this more than a personal site.
 
 I accept any kinds of feedback! You can submit them to issues :)
+
 **This website is half vibecoded.**
 Since I'm still new to this I asked Gemini to add stuff referencing from the original CSS and HTML I made. Hope you understand!
