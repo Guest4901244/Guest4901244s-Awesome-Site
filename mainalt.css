@@ -58,7 +58,6 @@ html {
     z-index: -1;
     background-image: linear-gradient(to bottom, #ffe589, #ffdf89, #ffda89, #ffd489, #ffcf8a, #ffd18f, #fed294, #fed499, #fedca4, #fee4b0, #feecbc, #fff3c8);
     background-size: cover;
-    background-position: center;
     animation: backgroundanim 1.2s cubic-bezier(0.15, 0, 0.2, 1) forwards;
 }
 
@@ -89,7 +88,6 @@ header {
     background-clip: text;
     -webkit-text-fill-color: transparent;
     animation: rainbowFlow 4s linear infinite;
-    flex-shrink: 0;
 }
 
 nav {
@@ -101,11 +99,9 @@ nav {
 
 .copyright {
     font-family: "Helvetica Neue", Helvetica, sans-serif;
-    font-size: 13px;
-    color: #8e8e93;
-    flex-shrink: 0;
-    font-weight: 400;
     font-size: 17px;
+    color: #8e8e93;
+    font-weight: 400;
 }
 
 hb {
@@ -115,7 +111,6 @@ hb {
     color: #8e8e93;
     font-family: "Helvetica Neue", Helvetica, sans-serif;
     font-size: 17px;
-    font-weight: 400;
     display: flex;
     align-items: center;
     transition: opacity 0.2s ease, color 0.2s ease;
@@ -127,12 +122,10 @@ hb {
 
     hb.active {
         color: #007aff;
-        font-weight: 400;
     }
 
 body {
     margin: 0;
-    padding: 0;
     height: 100vh;
     width: 100vw;
     overflow: hidden;
@@ -144,6 +137,8 @@ body {
     width: 100vw;
     height: 100vh;
     overflow: hidden;
+    position: relative;
+    z-index: 1;
 }
 
 section {
@@ -180,6 +175,7 @@ section {
     align-items: center;
     padding: 12px 0;
     border-bottom: 0.5px solid rgba(0,0,0,0.1);
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
 }
 
 .experimental-tag {
@@ -231,4 +227,45 @@ input:checked + .slider {
 
 input:checked + .slider:before {
     transform: translateX(20px);
+}
+
+a, a:visited {
+    color: #007aff;
+    text-decoration: none;
+}
+
+    a:active {
+        opacity: 0.3;
+    }
+
+.social-links {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    border-top: 0.5px solid rgba(0, 0, 0, 0.1);
+    padding-top: 15px;
+}
+
+    .social-links i, .social-links img {
+        font-size: 22px;
+        width: 22px;
+        height: 22px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        filter: invert(31%) sepia(94%) saturate(3755%) hue-rotate(201deg) brightness(101%) contrast(105%);
+    }
+
+    .social-links a:active i, .social-links a:active img {
+        opacity: 0.3;
+    }
+
+.sub-text {
+    display: block; /* Ensures it sits on its own line */
+    font-size: 12px;
+    color: #8e8e93; /* Secondary gray color used in your iOS theme */
+    margin-top: -10px; /* Pulls it closer to the paragraph above */
+    font-family: Helvetica, sans-serif;
 }

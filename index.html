@@ -6,6 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guest4901244's Awesome Site</title>
     <link id="theme-link" rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <style>
+        #dustCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            display: block;
+        }
+        .page-wrapper {
+            position: relative;
+            z-index: 1;
+        }
+    </style>
 </head>
 <body>
     <header class="main-header">
@@ -22,6 +39,7 @@
     </header>
 
     <div class="bg-image"></div>
+    <canvas id="dustCanvas"></canvas>
 
     <div class="page-wrapper">
         <section id="home">
@@ -29,34 +47,47 @@
                 <div class="BodyHeader">Welcome to my website!</div>
                 <p>There isn't a lot here yet, but I'm working on it. Meanwhile, you can check or contribute to the site from its <a href="https://github.com/Guest4901244/Guest4901244s-Awesome-Site">GitHub page</a>.</p>
                 <p>Have a nice day!</p>
+                <small class="sub-text">The header buttons are working, feel free to check out other pages :)</small>
             </div>
         </section>
 
         <section id="about">
             <div class="content-box">
                 <div class="BodyHeader">About Me</div>
-                <p>Hello, I'm Guest4901244. I'm a 16 years old guy from Turkey. I like tinkering with things.</p>
+                <p>Well...</p>
+                <p>Hello, I'm Guest4901244. Don't ask why I choose that username cause I don't know either :P</p>
+                <p>I'm a 16 years old guy from Turkey. I don't know what I do (don't ask me) but I like tinkering with things.</p>
+                <p>Right now I can do a little bit of Roblox Studio, FL Studio, CSS+HTML and maybe a bit of Video and Image editing. Though I think I can do a little more than that. I was always interested in UI designing and Operating Systems.</p>
+                <p>I wish I could put more information about myself but I can't think any of it right now :( Thanks for reading though!</p>
+                <p>Hope I make interesting projects someday.</p>
+                <div class="social-links">
+                    <a href="https://github.com/Guest4901244" target="_blank"><i class="bi bi-github"></i></a>
+                    <a href="https://www.reddit.com/user/Guest4901244" target="_blank"><i class="bi bi-reddit"></i></a>
+                    <a href="https://www.roblox.com/users/1167470143/profile" target="_blank"><img src="Resources/RobloxLogo.svg" alt="Roblox" class="social-icon"></a>
+                    <a href="https://x.com/guest4901244" target="_blank"><i class="bi bi-twitter"></i></a>
+                </div>
             </div>
         </section>
 
         <section id="projects">
             <div class="content-box">
                 <div class="BodyHeader">Projects</div>
-                <p>I don't really have any projects yet other than this website.</p>
+                <p>I don't really have any projects yet other than this website. I'll try to make some projects this summer :)</p>
+                <a href="https://github.com/Guest4901244/Guest4901244s-Awesome-Site">Guest4901244's Awesome Site!</a>
             </div>
         </section>
 
         <section id="contributors">
             <div class="content-box">
                 <div class="BodyHeader">Contributors</div>
-                <p>Currently, there are no contributors other than myself.</p>
+                <p>Currently, there are no contributors other than myself. If you want to contribute though, check out the <a href="https://github.com/Guest4901244/Guest4901244s-Awesome-Site">Github Page</a> :)</p>
             </div>
         </section>
 
         <section id="blog">
             <div class="content-box">
                 <div class="BodyHeader">Blog</div>
-                <p>There isn't a blog yet, but I might add one in the future.</p>
+                <p>There isn't a blog yet, but I might add one in the future. If you want to see some updates about the site, you can check out the <a href="https://github.com/Guest4901244/Guest4901244s-Awesome-Site">Github Page</a> :)</p>
             </div>
         </section>
 
@@ -70,17 +101,85 @@
                         <span class="slider"></span>
                     </label>
                 </div>
+                <div class="setting-item">
+                    <span>Background Particles</span>
+                    <label class="switch">
+                        <input type="checkbox" id="particle-toggle" onclick="toggleParticles()" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
             </div>
         </section>
     </div>
 
     <script>
+        const canvas = document.getElementById('dustCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let animationId;
+        let particlesEnabled = true;
+
+        const particleCache = document.createElement('canvas');
+        particleCache.width = 20;
+        particleCache.height = 20;
+        const pCtx = particleCache.getContext('2d');
+        const gradient = pCtx.createRadialGradient(10, 10, 0, 10, 10, 10);
+        gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
+        gradient.addColorStop(0.3, 'rgba(255, 255, 255, 0.4)');
+        gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+        pCtx.fillStyle = gradient;
+        pCtx.fillRect(0, 0, 20, 20);
+
+        function initCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 10 + 5;
+                this.speedX = Math.random() * 0.4 - 0.2;
+                this.speedY = Math.random() * 0.4 - 0.2;
+                this.opacity = Math.random() * 0.5;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x > canvas.width) this.x = 0;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0;
+                if (this.y < 0) this.y = canvas.height;
+            }
+            draw() {
+                ctx.globalAlpha = this.opacity;
+                ctx.drawImage(particleCache, this.x, this.y, this.size, this.size);
+            }
+        }
+
+        function createParticles() {
+            particles = [];
+            for (let i = 0; i < 60; i++) particles.push(new Particle());
+        }
+
+        function animate() {
+            if (!particlesEnabled) return;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.globalCompositeOperation = 'lighter';
+            particles.forEach(p => { p.update(); p.draw(); });
+            animationId = requestAnimationFrame(animate);
+        }
+
+        function toggleParticles() {
+            particlesEnabled = document.getElementById('particle-toggle').checked;
+            localStorage.setItem('particles', particlesEnabled);
+            if (particlesEnabled) { canvas.style.display = 'block'; animate(); }
+            else { canvas.style.display = 'none'; cancelAnimationFrame(animationId); }
+        }
+
         function goTo(id, element) {
-            document.getElementById(id).scrollIntoView({
-                behavior: 'smooth',
-                inline: 'center',
-                block: 'nearest'
-            });
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
             document.querySelectorAll('hb').forEach(btn => btn.classList.remove('active'));
             element.classList.add('active');
         }
@@ -88,13 +187,8 @@
         function toggleTheme() {
             const themeLink = document.getElementById('theme-link');
             const isChecked = document.getElementById('ios-toggle').checked;
-            if (isChecked) {
-                themeLink.href = 'mainalt.css';
-                localStorage.setItem('theme', 'ios7');
-            } else {
-                themeLink.href = 'main.css';
-                localStorage.setItem('theme', 'modern');
-            }
+            if (isChecked) { themeLink.href = 'mainalt.css'; localStorage.setItem('theme', 'ios7'); }
+            else { themeLink.href = 'main.css'; localStorage.setItem('theme', 'modern'); }
         }
 
         window.onload = function () {
@@ -103,7 +197,18 @@
                 document.getElementById('ios-toggle').checked = true;
                 document.getElementById('theme-link').href = 'mainalt.css';
             }
+            const savedParticles = localStorage.getItem('particles');
+            if (savedParticles === 'false') {
+                particlesEnabled = false;
+                document.getElementById('particle-toggle').checked = false;
+                canvas.style.display = 'none';
+            }
+            initCanvas();
+            createParticles();
+            if (particlesEnabled) animate();
         };
+
+        window.addEventListener('resize', () => { initCanvas(); createParticles(); });
     </script>
 </body>
 </html>
